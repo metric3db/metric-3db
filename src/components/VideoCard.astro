@@ -1,0 +1,51 @@
+---
+interface Props {
+  name: string;
+  title: string;
+}
+const { name, title } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const prefix = base.endsWith("/") ? base : base + "/";
+---
+
+<figure class="vcard">
+  <video
+    data-lazy-video
+    muted
+    loop
+    playsinline
+    controls
+    preload="none"
+    poster={`${prefix}videos/posters/${name}.jpg`}
+    aria-label={title}
+  >
+    <source src={`${prefix}videos/${name}.mp4`} type="video/mp4" />
+  </video>
+  <figcaption>
+    <h3>{title}</h3>
+    <p><slot /></p>
+  </figcaption>
+</figure>
+
+<script>
+  // Play a clip only while it is on screen, and fetch it only when it is about to be.
+  const clips = document.querySelectorAll<HTMLVideoElement>("[data-lazy-video]");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) {
+            v.preload = "auto";
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    clips.forEach((c) => io.observe(c));
+  }
+</script>

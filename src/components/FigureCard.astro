@@ -1,0 +1,11 @@
+---
+interface Props {
+  narrow?: boolean;
+}
+const { narrow = false } = Astro.props;
+---
+
+<figure class:list={["figure-card", narrow && "narrow"]}>
+  <div class="frame"><slot name="figure" /></div>
+  <figcaption><slot name="caption" /></figcaption>
+</figure>

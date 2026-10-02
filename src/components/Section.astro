@@ -1,0 +1,30 @@
+---
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  tone?: "plain" | "alt" | "dark";
+  center?: boolean;
+  aside?: boolean;
+}
+
+const { id, eyebrow, title, intro, tone = "plain", center = false, aside = false } = Astro.props;
+---
+
+<section id={id} class:list={["section", tone !== "plain" && tone]} data-section={id}>
+  <div class="wrap">
+    <div class:list={[aside && "aside-grid"]}>
+      {
+        (title || eyebrow) && (
+          <div class:list={["section-head", center && "center"]}>
+            {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+            {title && <h2>{title}</h2>}
+            {intro && <p class="section-intro">{intro}</p>}
+          </div>
+        )
+      }
+      {aside ? <div><slot /></div> : <slot />}
+    </div>
+  </div>
+</section>

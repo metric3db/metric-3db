@@ -1,0 +1,19 @@
+---
+const metrics = [
+  { t: "Pelvis-frame MPJPE", d: "Joint error after removing global translation. Measures articulation.", primary: false },
+  { t: "Pelvis-frame PA-MPJPE", d: "Also removes global rotation and isotropic scale.", primary: false },
+  { t: "Camera-local MPJPE", d: "Joints compared directly in camera coordinates, so errors in physical scale, lateral position and distance all count.", primary: true },
+];
+---
+
+<div class="metrics">
+  {
+    metrics.map((m) => (
+      <div class:list={["metric", m.primary && "primary"]}>
+        {m.primary && <span class="badge">Primary on depth benchmarks</span>}
+        <h3>{m.t}</h3>
+        <p>{m.d}</p>
+      </div>
+    ))
+  }
+</div>

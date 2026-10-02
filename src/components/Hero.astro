@@ -1,0 +1,23 @@
+---
+const { eyebrow, title, subtitle } = Astro.props;
+---
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1><span>{title}</span></h1>
+      <p class="subtitle">{subtitle}</p>
+      <div class="chips" aria-label="Operating modes">
+        <span class="chip" style="--dot: var(--c-rgb)"><i></i>RGB</span>
+        <span class="chip" style="--dot: var(--c-ground)"><i></i>+ Ground</span>
+        <span class="chip" style="--dot: var(--c-depth)"><i></i>RGB-D</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="#results">See the results</a>
+        <a class="btn ghost" href="#videos">Watch the videos</a>
+      </div>
+    </div>
+    <div class="hero-figure"><slot /></div>
+  </div>
+</header>

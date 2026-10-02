@@ -1,0 +1,69 @@
+---
+// One image, two worlds. A small person close to the camera and a larger person farther away
+// fill exactly the same image rows (the wedge), so the image alone cannot tell them apart.
+// Only the near one can have its feet on the floor, which is the constraint ground geometry adds.
+const CAM = { x: 70, y: 250 };
+const FLOOR = 300;
+const slopeBottom = (FLOOR - CAM.y) / (250 - CAM.x); // near person's feet land on the floor
+const slopeTop = (170 - CAM.y) / (250 - CAM.x); // near person is 130 units tall
+
+const at = (x: number) => ({
+  top: CAM.y + slopeTop * (x - CAM.x),
+  bottom: CAM.y + slopeBottom * (x - CAM.x),
+});
+
+const near = { x: 250, ...at(250), fill: "#4db8ff", text: "#0f78bd", w: 13 };
+const far = { x: 520, ...at(520), fill: "#ff5c8a", text: "#cc2d5f", w: 26 };
+const head = (p: { top: number; bottom: number }) => (p.bottom - p.top) * 0.085;
+const rayEnd = 830;
+const end = at(rayEnd);
+---
+
+<div class="diagram">
+  <svg viewBox="0 0 860 420" role="img" aria-label="A small person close to the camera and a larger person farther away fill the same image rows, but only the closer one can stand on the floor.">
+    <defs>
+      <linearGradient id="wedge" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#0f141b" stop-opacity="0.11"></stop>
+        <stop offset="1" stop-color="#0f141b" stop-opacity="0.03"></stop>
+      </linearGradient>
+      <pattern id="under" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="9" stroke="#c9ccc6" stroke-width="1.5"></line>
+      </pattern>
+    </defs>
+
+    <!-- below the floor -->
+    <rect x="30" y={FLOOR} width="800" height={420 - FLOOR} fill="url(#under)" opacity="0.7"></rect>
+    <line x1="30" y1={FLOOR} x2="830" y2={FLOOR} stroke="#8b939c" stroke-width="2"></line>
+    <text x="826" y={FLOOR + 28} text-anchor="end" font-size="19" font-weight="600" fill="#6a7480">floor</text>
+
+    <!-- what the camera sees -->
+    <polygon points={`${CAM.x},${CAM.y} ${rayEnd},${end.top} ${rayEnd},${end.bottom}`} fill="url(#wedge)"></polygon>
+    <line x1={CAM.x} y1={CAM.y} x2={rayEnd} y2={end.top} stroke="#8b939c" stroke-width="1.5" stroke-dasharray="5 5"></line>
+    <line x1={CAM.x} y1={CAM.y} x2={rayEnd} y2={end.bottom} stroke="#8b939c" stroke-width="1.5" stroke-dasharray="5 5"></line>
+
+    <!-- camera -->
+    <g transform={`translate(${CAM.x - 8},${CAM.y})`}>
+      <rect x="-24" y="-17" width="42" height="34" rx="8" fill="#0f141b"></rect>
+      <circle cx="0" cy="0" r="10" fill="#fafaf7"></circle>
+      <circle cx="0" cy="0" r="5" fill="#0f141b"></circle>
+      <text x="-30" y="-28" font-size="20" font-weight="650" fill="#3a444f">camera</text>
+    </g>
+
+    <!-- the far person is drawn first so the near one reads in front -->
+    <g>
+      <line x1={far.x} y1={far.top + head(far) * 2} x2={far.x} y2={far.bottom} stroke={far.fill} stroke-width={far.w} stroke-linecap="round" opacity="0.92"></line>
+      <circle cx={far.x} cy={far.top + head(far)} r={head(far)} fill={far.fill}></circle>
+      <line x1={far.x - 60} y1={FLOOR} x2={far.x + 60} y2={FLOOR} stroke="#fafaf7" stroke-width="3" opacity="0.9"></line>
+      <text x={far.x + 44} y={far.top + 30} font-size="26" font-weight="700" fill={far.text}>larger, farther</text>
+      <text x={far.x + 44} y={far.top + 58} font-size="20" font-weight="500" fill="#6a7480">feet below the floor</text>
+    </g>
+    <g>
+      <line x1={near.x} y1={near.top + head(near) * 2} x2={near.x} y2={near.bottom} stroke={near.fill} stroke-width={near.w} stroke-linecap="round"></line>
+      <circle cx={near.x} cy={near.top + head(near)} r={head(near)} fill={near.fill}></circle>
+      <text x={near.x + 30} y={near.top + 10} font-size="26" font-weight="700" fill={near.text}>smaller, closer</text>
+      <text x={near.x + 30} y={near.top + 38} font-size="20" font-weight="500" fill="#6a7480">feet on the floor</text>
+    </g>
+
+    <text x="70" y="108" font-size="20" font-weight="600" fill="#6a7480">both fill the same image rows</text>
+  </svg>
+</div>

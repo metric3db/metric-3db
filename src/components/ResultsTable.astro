@@ -1,0 +1,52 @@
+---
+import { DATASETS, ROWS } from "../lib/results";
+
+const best = DATASETS.map((_, j) => Math.min(...ROWS.map((r) => r.values[j])));
+---
+
+<div class="results">
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Camera-local MPJPE (mm) ↓</th>
+          {DATASETS.map((d) => <th scope="col">{d}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group"><td colspan={DATASETS.length + 1}>Baseline</td></tr>
+        {
+          ROWS.filter((r) => r.kind === "baseline").map((r, i) => (
+            <tr>
+              <td>
+                <span class="rowname" style={`--dot: ${r.color}`}>
+                  <i class:list={[i > 0 && "hollow"]}></i>{r.name}
+                </span>
+              </td>
+              {r.values.map((v, j) => (
+                <td class:list={[v === best[j] && "best"]}>
+                  {v === best[j] ? <span>{v.toFixed(1)}</span> : v.toFixed(1)}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+        <tr class="group"><td colspan={DATASETS.length + 1}>One model, three modes</td></tr>
+        {
+          ROWS.filter((r) => r.kind === "ours").map((r) => (
+            <tr class="ours">
+              <td>
+                <span class="rowname" style={`--dot: ${r.color}`}><i></i>{r.name}</span>
+              </td>
+              {r.values.map((v, j) => (
+                <td class:list={[v === best[j] && "best"]} style={`--dot: ${r.color}`}>
+                  {v === best[j] ? <span>{v.toFixed(1)}</span> : v.toFixed(1)}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,106 +1,181 @@
 ---
 title: "MetricPose: Metric 3D Human Pose from Optional Depth and Geometry"
-theme: light
 favicon: favicon.svg
 description: An anonymous research project on camera-frame 3D human pose estimation with optional depth and ground geometry.
 ---
 
-import Header from "./components/Header.astro";
-import HighlightedSection from "./components/HighlightedSection.astro";
-import Figure from "./components/Figure.astro";
+import Hero from "./components/Hero.astro";
+import Section from "./components/Section.astro";
 import Picture from "./components/Picture.astro";
-import Wide from "./components/Wide.astro";
+import FigureCard from "./components/FigureCard.astro";
+import AmbiguityDiagram from "./components/AmbiguityDiagram.astro";
+import ModeCards from "./components/ModeCards.astro";
+import Pipeline from "./components/Pipeline.astro";
+import Metrics from "./components/Metrics.astro";
+import Stats from "./components/Stats.astro";
+import ResultsTable from "./components/ResultsTable.astro";
+import VideoCard from "./components/VideoCard.astro";
 
-<Header
+<Hero
+  eyebrow="Anonymous submission · 2026"
   title="MetricPose"
-  conference="Anonymous submission · 2026"
-  authors={[{ name: "Anonymous authors" }]}
+  subtitle="Metric 3D human pose from optional depth and ground geometry."
 >
-  <Picture
-    slot="background"
-    src="figures/abs.pdf"
-    alt=""
-    priority
-  />
-</Header>
+  <FigureCard>
+    <Picture
+      slot="figure"
+      src="figures/abs.pdf"
+      alt="Overview: from the image, the same person can be a smaller body close to the camera or a larger one farther away; depth and ground geometry resolve the ambiguity."
+      priority
+    />
+    <Fragment slot="caption">The same image evidence supports different body scales and camera distances. Depth and ground contact add the constraints that monocular RGB lacks.</Fragment>
+  </FigureCard>
+</Hero>
 
-<HighlightedSection>
+<Section id="overview" aside eyebrow="Abstract" title="Pose in the camera's own frame">
 
-## Abstract
+<div class="copy lead">
 
 MetricPose estimates human joint positions in the camera coordinate frame. Unlike pelvis-relative pose, camera-frame reconstruction must recover body configuration, physical scale, and placement relative to the sensor. These quantities are coupled in monocular images: a smaller person closer to the camera can produce a similar projection to a larger person farther away.
 
 The model combines three complementary signals: learned RGB priors, optional metric depth, and optional ground geometry. A single set of parameters supports RGB, RGB with ground geometry, RGB-D, and RGB-D with ground geometry, allowing metric sensing to be used when available without making it a hard requirement.
 
-</HighlightedSection>
+</div>
 
-## Why metric pose?
+</Section>
+
+<Section id="why" tone="alt" eyebrow="Motivation" title="Why metric pose?">
+
+<div class="copy">
 
 Root-relative metrics are useful for measuring articulation, but they remove the quantities needed for physical interaction. A robot reaching toward a hand, a system maintaining clearance, and a biomechanics pipeline measuring stride length all need joint locations in a shared metric frame.
 
-<Figure>
+**Monocular RGB cannot supply that alone.** A smaller person nearby and a larger person farther away fill the same image rows. Only an extra constraint, such as the floor under the feet or a measured depth, separates them.
+
+</div>
+
+<div class="figure-card narrow" style="margin-top: 2.4rem;">
+<AmbiguityDiagram />
+</div>
+
+</Section>
+
+<Section id="method" eyebrow="Method" title="One model, three operating modes" intro="The same weights run with whichever measurements a deployment has. Metric sensing is used when available and never required.">
+
+<ModeCards />
+
+<div class="copy" style="margin-top: 2.2rem;">
+
+The model extends a pretrained full-body estimator. RGB features provide the initial reconstruction, and optional measurements correct it in three places.
+
+</div>
+
+<Pipeline />
+
+<div style="margin-top: 2.5rem;">
+<FigureCard>
   <Picture
     slot="figure"
-    src="figures/abs.pdf"
-    alt="Illustration of monocular size and camera-distance ambiguity"
-  />
-  <Fragment slot="caption">The same image evidence can support different body scales and camera distances. Metric depth and ground contact add constraints that monocular RGB alone cannot provide.</Fragment>
-</Figure>
-
-## One model, three operating modes
-
-| Input | What it contributes |
-| :--- | :--- |
-| RGB | Learned priors for pose, body shape, and initial camera placement |
-| RGB + ground | A floor plane and gravity cue for metric placement |
-| RGB-D | Surface depth for scale, camera distance, and local pose refinement |
-
-The model extends a pretrained full-body estimator. RGB features provide the initial reconstruction; depth enters through feature fusion and masked decoder attention; and a second pose pass reads local measured-minus-predicted depth residuals around selected landmarks. Deterministic depth and ground corrections adjust scale and camera translation when their corresponding cues are available.
-
-<Wide>
-  <Picture
     src="figures/architecture.pdf"
     alt="Diagram of the RGB-D reconstruction and metric-correction pipeline"
   />
-</Wide>
+  <Fragment slot="caption">Architecture of the RGB-D reconstruction and metric-correction pipeline.</Fragment>
+</FigureCard>
+</div>
 
-## Evaluation
+</Section>
 
-We report three complementary metrics in millimeters:
+<Section id="results" tone="alt" eyebrow="Evaluation" title="Metric accuracy across four benchmarks" intro="Three complementary metrics, all in millimetres. On depth-enabled benchmarks the camera-local metric is primary, because it keeps the placement problem the method is built to solve.">
 
-- **Pelvis-frame MPJPE** measures joint error after removing global translation.
-- **Pelvis-frame PA-MPJPE** additionally removes global rotation and isotropic scale.
-- **Camera-local MPJPE** compares joints directly in camera coordinates, retaining errors in physical scale, lateral position, and camera distance.
+<Metrics />
 
-On depth-enabled benchmarks, the camera-local metric is the primary measure because it preserves the placement problem the method is designed to solve.
+<Stats />
 
-| Method | BEDLAM2 | CMU Panoptic | HuMMan | EgoBody |
-| :--- | ---: | ---: | ---: | ---: |
-| SAM 3D Body | 266.7 | 122.9 | 76.7 | 97.4 |
-| SAM 3D Body + depth correction | 184.5 | 102.0 | 52.7 | 70.2 |
-| Ours (RGB) | 188.2 | 104.6 | 81.2 | 90.1 |
-| Ours (RGB + Ground) | **147.0** | **78.5** | 50.1 | 96.0 |
-| Ours (RGB-D) | 166.1 | 98.5 | **39.7** | **47.5** |
+<p class="caption">Reduction in camera-local MPJPE from plain SAM 3D Body to the best of our modes on each benchmark. The best mode differs by dataset and uses the extra input named on each card.</p>
 
-These values are camera-local MPJPE in millimeters; lower is better. Ground geometry is especially useful when depth is absent, while measured depth provides the strongest gains on the depth-enabled subjects in HuMMan and EgoBody.
+<ResultsTable />
 
-## A controlled distance test
+<p class="caption">Camera-local MPJPE in millimetres; lower is better. Ground geometry is especially useful when depth is absent, while measured depth gives the strongest gains on the depth-enabled subjects in HuMMan and EgoBody.</p>
+
+</Section>
+
+<Section id="qualitative" eyebrow="Examples" title="Where each method puts the body" intro="Predicted mesh against the ground-truth mesh outline, on HuMMan and RICH frames. The label on each panel is the signed error of the predicted depth along the optical axis; positive means too far.">
+
+<FigureCard narrow>
+  <Picture
+    slot="figure"
+    src="figures/fig_sidebyside_final.pdf"
+    alt="Side-by-side comparison of SAM 3D Body, Anny-Fit and the three modes of our model against ground truth on HuMMan and RICH frames."
+  />
+  <Fragment slot="caption">Columns: (a) input, (b) SAM 3D Body, (c) Anny-Fit, (d) ours with RGB, (e) ours with RGB and ground, (f) ours with RGB-D. <b>Frames are illustrative, not a random sample.</b></Fragment>
+</FigureCard>
+
+</Section>
+
+<Section id="videos" tone="dark" eyebrow="Videos" title="Metric pose in motion" intro="Per-frame results on two recordings the models never saw in training: a quadruped robot following an adult through a corridor, and a two-year-old standing beside an adult.">
+
+<div class="videos">
+  <VideoCard name="robot_follow_distance" title="A robot following a walking adult">
+    Distance to the person, frame by frame, for every method against the depth camera's own reading of the person.
+  </VideoCard>
+  <VideoCard name="robot_follow_3d" title="The same recording as 3-D geometry">
+    Where each model places the person relative to the camera and the scene's point cloud.
+  </VideoCard>
+  <VideoCard name="size_placement" title="A child and an adult in one view">
+    Every method lands on the same pixels, but RGB-only models treat the child as a smaller adult standing much farther away. Ground geometry and depth recover the true distance.
+  </VideoCard>
+  <VideoCard name="size_3d" title="The same scene in metric 3-D">
+    Camera, floor and depth point cloud seen from the side, with each model's body at its predicted size and distance.
+  </VideoCard>
+</div>
+
+<div class="legend">
+  <span style="--dot: #FFA033"><i></i>SAM 3D Body</span>
+  <span style="--dot: #4DB8FF"><i></i>ours, RGB</span>
+  <span style="--dot: #82C860"><i></i>ours, RGB + ground</span>
+  <span style="--dot: #FF5C8A"><i></i>ours, RGB-D</span>
+  <span style="--dot: #F0E146"><i></i>Anny-Fit</span>
+</div>
+
+</Section>
+
+<Section id="distance" eyebrow="Controlled test" title="A controlled distance test">
+
+<div class="copy">
 
 To expose the scale-distance confound directly, we evaluate a small subject across camera heights and prescribed floor distances. The RGB baseline increasingly interprets the subject as a larger person farther away. Ground geometry reduces this error without depth, while RGB-D remains stable across the tested distances.
 
-<Figure>
+</div>
+
+<div style="margin-top: 2rem;">
+<FigureCard narrow>
   <Picture
     slot="figure"
     src="figures/robot_distance_lineplot.pdf"
     alt="Camera-distance error across camera heights and subject distances"
   />
   <Fragment slot="caption">Camera-distance error in the controlled distance experiment. Depth and ground geometry act as complementary metric anchors.</Fragment>
-</Figure>
+</FigureCard>
+</div>
 
-## Takeaway
+</Section>
 
-Metric pose is partly an information problem. RGB priors recover plausible bodies, but optional measurements determine where those bodies actually are. MetricPose separates these roles so a deployment can use calibrated depth or scene geometry when present and still operate with RGB alone.
+<Section id="takeaway" tone="alt">
+
+<div class="takeaway">
+
+<p class="eyebrow">Takeaway</p>
+
+<p>Metric pose is partly an information problem. RGB priors recover plausible bodies, but optional measurements determine where those bodies actually are. MetricPose separates these roles so a deployment can use calibrated depth or scene geometry when present and still operate with RGB alone.</p>
+
+</div>
+
+<div class="formula">
 
 $$
 \hat{\mathbf J}^{\mathrm{cam}}_j = \mathcal J_j(\hat{\boldsymbol\theta}) + \hat{\mathbf t}
 $$
+
+</div>
+
+</Section>

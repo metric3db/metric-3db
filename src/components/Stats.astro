@@ -1,0 +1,17 @@
+---
+import { headline } from "../lib/results";
+const items = headline();
+---
+
+<div class="stats">
+  {
+    items.map((s) => (
+      <div class="stat">
+        <div class="ds">{s.dataset}</div>
+        <div class="big">−{s.drop}<small>%</small></div>
+        <div class="detail">{s.from.toFixed(1)} → {s.to.toFixed(1)} mm</div>
+        <div class="mode-tag" style={`--dot: ${s.color}`}><i></i>{s.mode}</div>
+      </div>
+    ))
+  }
+</div>

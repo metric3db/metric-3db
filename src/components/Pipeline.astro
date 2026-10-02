@@ -1,0 +1,11 @@
+---
+const steps = [
+  { n: "Step 1", t: "RGB reconstruction", d: "RGB features give the first body estimate and camera translation." },
+  { n: "Step 2", t: "Depth inside the network", d: "Depth enters through feature fusion and masked decoder attention. A second pose pass reads measured-minus-predicted depth residuals around selected landmarks." },
+  { n: "Step 3", t: "Deterministic corrections", d: "When a cue is present, scale and camera translation are adjusted by the depth or ground constraint." },
+];
+---
+
+<div class="pipeline">
+  {steps.map((s) => <div class="step"><small>{s.n}</small><b>{s.t}</b>{s.d}</div>)}
+</div>

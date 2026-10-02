@@ -1,0 +1,44 @@
+---
+const modes = [
+  {
+    tag: "RGB",
+    accent: "var(--c-rgb)",
+    text: "var(--t-rgb)",
+    title: "Learned priors",
+    body: "A pretrained full-body estimator supplies pose, body shape and an initial camera placement from the image alone.",
+    adds: "Needs",
+    needs: "a single RGB image",
+  },
+  {
+    tag: "RGB + Ground",
+    accent: "var(--c-ground)",
+    text: "var(--t-ground)",
+    title: "A floor and gravity cue",
+    body: "A floor plane and a gravity direction pin the body to the ground, which fixes metric placement without any depth sensor.",
+    adds: "Adds",
+    needs: "a floor plane",
+  },
+  {
+    tag: "RGB-D",
+    accent: "var(--c-depth)",
+    text: "var(--t-depth)",
+    title: "Measured surface depth",
+    body: "Depth sets the body's scale and camera distance directly, and refines local pose where the measurement disagrees with the prediction.",
+    adds: "Adds",
+    needs: "a depth map",
+  },
+];
+---
+
+<div class="modes">
+  {
+    modes.map((m) => (
+      <article class="mode" style={`--accent: ${m.accent}; --accent-text: ${m.text}`}>
+        <span class="tag"><i></i>{m.tag}</span>
+        <h3>{m.title}</h3>
+        <p>{m.body}</p>
+        <div class="adds"><b>{m.adds}</b> {m.needs}</div>
+      </article>
+    ))
+  }
+</div>
