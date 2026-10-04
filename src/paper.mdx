@@ -17,7 +17,6 @@ import ResultsTable from "./components/ResultsTable.astro";
 import VideoCard from "./components/VideoCard.astro";
 
 <Hero
-  eyebrow="Anonymous submission · 2026"
   title="MetricPose"
   subtitle="Metric 3D human pose from optional depth and ground geometry."
 >
@@ -32,7 +31,7 @@ import VideoCard from "./components/VideoCard.astro";
   </FigureCard>
 </Hero>
 
-<Section id="overview" aside eyebrow="Abstract" title="Pose in the camera's own frame">
+<Section id="overview" title="Pose in the camera's own frame">
 
 <div class="copy lead">
 
@@ -44,7 +43,7 @@ The model combines three complementary signals: learned RGB priors, optional met
 
 </Section>
 
-<Section id="why" tone="alt" eyebrow="Motivation" title="Why metric pose?">
+<Section id="why" tone="alt" title="Why metric pose?">
 
 <div class="copy">
 
@@ -60,7 +59,7 @@ Root-relative metrics are useful for measuring articulation, but they remove the
 
 </Section>
 
-<Section id="method" eyebrow="Method" title="One model, three operating modes" intro="The same weights run with whichever measurements a deployment has. Metric sensing is used when available and never required.">
+<Section id="method" title="One model, three operating modes" intro="The same weights run with whichever measurements a deployment has. Metric sensing is used when available and never required.">
 
 <ModeCards />
 
@@ -85,7 +84,7 @@ The model extends a pretrained full-body estimator. RGB features provide the ini
 
 </Section>
 
-<Section id="results" tone="alt" eyebrow="Evaluation" title="Metric accuracy across four benchmarks" intro="Three complementary metrics, all in millimetres. On depth-enabled benchmarks the camera-local metric is primary, because it keeps the placement problem the method is built to solve.">
+<Section id="results" tone="alt" title="Metric accuracy across four benchmarks" intro="Three complementary metrics, all in millimetres. On depth-enabled benchmarks the camera-local metric is primary, because it keeps the placement problem the method is built to solve.">
 
 <Metrics />
 
@@ -99,7 +98,7 @@ The model extends a pretrained full-body estimator. RGB features provide the ini
 
 </Section>
 
-<Section id="qualitative" eyebrow="Examples" title="Where each method puts the body" intro="Predicted mesh against the ground-truth mesh outline, on HuMMan and RICH frames. The label on each panel is the signed error of the predicted depth along the optical axis; positive means too far.">
+<Section id="qualitative" title="Where each method puts the body" intro="Predicted mesh against the ground-truth mesh outline, on HuMMan and RICH frames. The label on each panel is the signed error of the predicted depth along the optical axis; positive means too far.">
 
 <FigureCard narrow>
   <Picture
@@ -112,7 +111,7 @@ The model extends a pretrained full-body estimator. RGB features provide the ini
 
 </Section>
 
-<Section id="videos" tone="dark" eyebrow="Videos" title="Metric pose in motion" intro="Per-frame results on two recordings the models never saw in training: a quadruped robot following an adult through a corridor, and a two-year-old standing beside an adult.">
+<Section id="videos" tone="dark" title="Metric pose in motion" intro="Per-frame results on two recordings the models never saw in training: a quadruped robot following an adult through a corridor, and a two-year-old standing beside an adult.">
 
 <div class="videos">
   <VideoCard name="robot_follow_distance" title="A robot following a walking adult">
@@ -139,7 +138,7 @@ The model extends a pretrained full-body estimator. RGB features provide the ini
 
 </Section>
 
-<Section id="distance" eyebrow="Controlled test" title="A controlled distance test">
+<Section id="distance" title="Controlled distance test">
 
 <div class="copy">
 
@@ -163,8 +162,6 @@ To expose the scale-distance confound directly, we evaluate a small subject acro
 <Section id="takeaway" tone="alt">
 
 <div class="takeaway">
-
-<p class="eyebrow">Takeaway</p>
 
 <p>Metric pose is partly an information problem. RGB priors recover plausible bodies, but optional measurements determine where those bodies actually are. MetricPose separates these roles so a deployment can use calibrated depth or scene geometry when present and still operate with RGB alone.</p>
 

@@ -150,15 +150,6 @@ picture,
   text-align: center;
 }
 
-.eyebrow {
-  margin: 0 0 1rem;
-  font-size: 0.8rem;
-  font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mute);
-}
-
 .hero h1 {
   margin: 0;
   font-size: clamp(3.2rem, 9vw, 6.2rem);
@@ -268,9 +259,6 @@ picture,
   color: inherit;
   text-wrap: balance;
 }
-
-.section .eyebrow { color: var(--t-rgb); }
-.section.dark .eyebrow { color: var(--c-rgb); }
 
 .section-intro {
   margin: 1rem 0 0;
@@ -629,7 +617,7 @@ picture,
   text-align: center;
 }
 
-.takeaway p:not(.eyebrow) {
+.takeaway p {
   font-size: clamp(1.25rem, 2.3vw, 1.6rem);
   line-height: 1.5;
   letter-spacing: -0.015em;
@@ -663,12 +651,21 @@ picture,
 
 .aside-grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 7fr);
   gap: clamp(1.5rem, 5vw, 4.5rem);
   align-items: start;
 }
 
 .aside-grid .section-head { position: sticky; top: 5.5rem; margin-bottom: 0; }
+
+#overview h2 {
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+/* #overview .copy {
+  max-width: none;
+} */
 
 @media (max-width: 54rem) {
   .aside-grid { grid-template-columns: 1fr; }

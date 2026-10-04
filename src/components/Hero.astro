@@ -1,11 +1,10 @@
 ---
-const { eyebrow, title, subtitle } = Astro.props;
+const { title, subtitle } = Astro.props;
 ---
 
 <header class="hero" id="top">
   <div class="wrap">
     <div class="hero-copy">
-      <p class="eyebrow">{eyebrow}</p>
       <h1><span>{title}</span></h1>
       <p class="subtitle">{subtitle}</p>
       <div class="chips" aria-label="Operating modes">
