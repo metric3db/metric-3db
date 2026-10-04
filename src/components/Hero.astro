@@ -7,14 +7,10 @@ const { title, subtitle } = Astro.props;
     <div class="hero-copy">
       <h1><span>{title}</span></h1>
       <p class="subtitle">{subtitle}</p>
-      <div class="chips" aria-label="Operating modes">
-        <span class="chip" style="--dot: var(--c-rgb)"><i></i>RGB</span>
-        <span class="chip" style="--dot: var(--c-ground)"><i></i>+ Ground</span>
-        <span class="chip" style="--dot: var(--c-depth)"><i></i>RGB-D</span>
-      </div>
+      <p class="submission">Anonymous submission · 2026</p>
       <div class="hero-actions">
-        <a class="btn" href="#results">See the results</a>
-        <a class="btn ghost" href="#videos">Watch the videos</a>
+        <a class="chip" href="#results">Results</a>
+        <a class="chip chip-dark" href="#videos">Videos</a>
       </div>
     </div>
     <div class="hero-figure"><slot /></div>
