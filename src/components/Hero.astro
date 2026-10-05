@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const { title, subtitle } = Astro.props;
 ---
 
@@ -9,10 +11,22 @@ const { title, subtitle } = Astro.props;
       <p class="subtitle">{subtitle}</p>
       <p class="submission">Anonymous submission · 2026</p>
       <div class="hero-actions">
-        <a class="chip" href="#results">Results</a>
-        <a class="chip chip-dark" href="#videos">Videos</a>
-        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">Paper</button>
-        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">Code</button>
+        <a class="chip" href="#results">
+          <Icon name="ri:bar-chart-fill" size="16" aria-hidden="true" />
+          Results
+        </a>
+        <a class="chip chip-dark" href="#videos">
+          <Icon name="ri:video-fill" size="16" aria-hidden="true" />
+          Videos
+        </a>
+        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">
+          <Icon name="ri:file-pdf-fill" size="16" aria-hidden="true" />
+          Paper
+        </button>
+        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">
+          <Icon name="ri:github-fill" size="16" aria-hidden="true" />
+          Code
+        </button>
       </div>
       <p class="release-note" id="release-note">Paper and code will be released after publication.</p>
     </div>
