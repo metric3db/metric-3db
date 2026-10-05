@@ -11,7 +11,10 @@ const { title, subtitle } = Astro.props;
       <div class="hero-actions">
         <a class="chip" href="#results">Results</a>
         <a class="chip chip-dark" href="#videos">Videos</a>
+        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">Paper</button>
+        <button class="chip chip-dark" type="button" disabled aria-describedby="release-note">Code</button>
       </div>
+      <p class="release-note" id="release-note">Paper and code will be released after publication.</p>
     </div>
     <div class="hero-figure"><slot /></div>
   </div>

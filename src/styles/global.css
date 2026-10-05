@@ -227,10 +227,23 @@ picture,
   color: #fff;
 }
 
-.hero-actions .chip-dark:hover {
+.hero-actions .chip-dark:not(:disabled):hover {
   background: var(--ink-2);
   border-color: var(--ink-2);
   color: #fff;
+}
+
+.hero-actions button:disabled {
+  padding-inline: 0.9rem;
+  background: var(--ink-2);
+  border-color: var(--ink-2);
+  cursor: not-allowed;
+}
+
+.hero .release-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--ink-2);
 }
 
 .btn {
