@@ -270,6 +270,34 @@ picture,
   max-width: 62rem;
 }
 
+.tldr-box {
+  max-width: 54rem;
+  margin: 0 auto clamp(1.6rem, 3.5vw, 2.4rem);
+  padding: 1.05rem 1.35rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--c-rgb);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  font-size: 1.03rem;
+  line-height: 1.62;
+  color: var(--ink-2);
+  text-align: left;
+}
+
+.tldr-box b.tldr-tag {
+  display: inline-block;
+  color: var(--t-rgb);
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  margin-right: 0.45rem;
+}
+
+.tldr-box strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
 /* ----------------------------------------------------------------- section */
 .section {
   padding-block: clamp(3.5rem, 7vw, 6rem);

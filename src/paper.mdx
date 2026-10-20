@@ -20,6 +20,10 @@ import VideoCard from "./components/VideoCard.astro";
   title="MetricPose"
   subtitle="Metric 3D human pose from optional depth and ground geometry."
 >
+  <div class="tldr-box">
+    <b class="tldr-tag">TL;DR:</b> Camera-frame 3D pose must recover true physical scale and distance—quantities that monocular RGB cannot disambiguate alone. <strong>MetricPose</strong> resolves this by unifying learned RGB priors with optional depth and ground geometry in a single model, using metric sensing when available without requiring it.
+  </div>
+
   <FigureCard>
     <Picture
       slot="figure"
@@ -58,19 +62,7 @@ import VideoCard from "./components/VideoCard.astro";
 
 </Section>
 
-<Section id="overview" title="Pose in the camera's own frame">
-
-<div class="copy lead">
-
-MetricPose estimates human joint positions in the camera coordinate frame. Unlike pelvis-relative pose, camera-frame reconstruction must recover body configuration, physical scale, and placement relative to the sensor. These quantities are coupled in monocular images: a smaller person closer to the camera can produce a similar projection to a larger person farther away.
-
-The model combines three complementary signals: learned RGB priors, optional metric depth, and optional ground geometry. A single set of parameters supports RGB, RGB with ground geometry, RGB-D, and RGB-D with ground geometry, allowing metric sensing to be used when available without making it a hard requirement.
-
-</div>
-
-</Section>
-
-<Section id="why" tone="alt" title="Why metric pose?">
+<Section id="why" title="Why metric pose?">
 
 <div class="copy">
 
