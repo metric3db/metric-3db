@@ -312,6 +312,7 @@ picture,
 
 .section-head { max-width: 50rem; margin-bottom: clamp(1.8rem, 3vw, 2.8rem); }
 .section-head.center { margin-inline: auto; text-align: center; }
+#videos .section-head { max-width: 62rem; }
 
 .section h2 {
   margin: 0;
