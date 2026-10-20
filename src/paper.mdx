@@ -8,7 +8,6 @@ import Hero from "./components/Hero.astro";
 import Section from "./components/Section.astro";
 import Picture from "./components/Picture.astro";
 import FigureCard from "./components/FigureCard.astro";
-import AmbiguityDiagram from "./components/AmbiguityDiagram.astro";
 import ModeCards from "./components/ModeCards.astro";
 import Pipeline from "./components/Pipeline.astro";
 import Metrics from "./components/Metrics.astro";
@@ -74,22 +73,6 @@ import VideoCard from "./components/VideoCard.astro";
   <span style="--dot: #82C860"><i></i>ours, RGB + ground</span>
   <span style="--dot: #FF5C8A"><i></i>ours, RGB-D</span>
   <span style="--dot: #F0E146"><i></i>Anny-Fit</span>
-</div>
-
-</Section>
-
-<Section id="why" title="Why metric pose?">
-
-<div class="copy">
-
-Root-relative metrics are useful for measuring articulation, but they remove the quantities needed for physical interaction. A robot reaching toward a hand, a system maintaining clearance, and a biomechanics pipeline measuring stride length all need joint locations in a shared metric frame.
-
-**Monocular RGB cannot supply that alone.** A smaller person nearby and a larger person farther away fill the same image rows. Only an extra constraint, such as the floor under the feet or a measured depth, separates them.
-
-</div>
-
-<div class="figure-card narrow" style="margin-top: 2.4rem;">
-<AmbiguityDiagram />
 </div>
 
 </Section>
