@@ -592,8 +592,9 @@ picture,
 .vcard {
   margin: 0;
   border-radius: var(--radius-card);
-  background: var(--dark-2);
-  border: 1px solid var(--dark-line);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -601,13 +602,13 @@ picture,
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #000;
+  background: var(--line);
   object-fit: cover;
 }
 
 .vcard figcaption { padding: 1.1rem 1.3rem 1.3rem; }
-.vcard h3 { margin: 0 0 0.35rem; font-size: 1.1rem; font-weight: 680; letter-spacing: -0.015em; color: #fff; }
-.vcard p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: #9ea6b6; }
+.vcard h3 { margin: 0 0 0.35rem; font-size: 1.1rem; font-weight: 680; letter-spacing: -0.015em; color: var(--ink); }
+.vcard p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--ink-2); }
 
 .legend {
   display: flex;
@@ -615,7 +616,7 @@ picture,
   gap: 0.5rem 1.2rem;
   margin-top: 1.6rem;
   font-size: 0.9rem;
-  color: #c3c9d6;
+  color: var(--ink-2);
 }
 
 .legend span { display: inline-flex; align-items: center; gap: 0.5rem; }
