@@ -115,32 +115,26 @@ import VideoCard from "./components/VideoCard.astro";
 
 </Section>
 
-<Section id="distance" title="Controlled distance test">
+<Section id="distance" title="Controlled Distance Evaluation" intro="Systematic evaluation of depth drift across varying camera heights and distances. Ground geometry significantly dampens baseline scale confusion, while RGB-D remains invariant across all tested ranges.">
 
-<div class="copy">
-
-To expose the scale-distance confound directly, we evaluate a small subject across camera heights and prescribed floor distances. The RGB baseline increasingly interprets the subject as a larger person farther away. Ground geometry reduces this error without depth, while RGB-D remains stable across the tested distances.
-
-</div>
-
-<div style="margin-top: 2rem;">
+<div style="margin-top: 2.2rem;">
 <FigureCard narrow>
   <Picture
     slot="figure"
     src="figures/robot_distance_lineplot.pdf"
     alt="Camera-distance error across camera heights and subject distances"
   />
-  <Fragment slot="caption">Camera-distance error in the controlled distance experiment. Depth and ground geometry act as complementary metric anchors.</Fragment>
+  <Fragment slot="caption">Camera-distance error across prescribed ground distances. Ground geometry and depth act as complementary metric anchors to eliminate scale-distance collapse.</Fragment>
 </FigureCard>
 </div>
 
 </Section>
 
-<Section id="takeaway" tone="alt" title="Takeaway" center>
+<Section id="takeaway" tone="alt" title="Key Takeaway" center>
 
 <div class="takeaway">
 
-<p>Metric pose is partly an information problem. RGB priors recover plausible bodies, but optional measurements determine where those bodies actually are. MetricPose separates these roles so a deployment can use calibrated depth or scene geometry when present and still operate with RGB alone.</p>
+<p>Camera-frame 3D human pose is fundamentally an information decoupling problem: learned RGB priors recover body articulation, while geometric constraints anchor physical scale and sensor placement. By unifying these roles in a single model, <b>MetricPose</b> delivers high metric precision whenever depth or ground cues exist, while retaining full functionality on standard RGB alone.</p>
 
 </div>
 
