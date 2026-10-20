@@ -102,7 +102,7 @@ import VideoCard from "./components/VideoCard.astro";
 
 </Section>
 
-<Section id="qualitative" title="Where each method puts the body" intro="Predicted mesh against the ground-truth mesh outline, on HuMMan and RICH frames. The label on each panel is the signed error of the predicted depth along the optical axis; positive means too far.">
+<Section id="qualitative" title="Qualitative Mesh Comparisons" intro="Predicted 3D meshes compared against ground-truth outlines on HuMMan and RICH frames. Panel labels denote signed optical-axis depth error (Δz in mm, positive = too far).">
 
 <FigureCard narrow>
   <Picture
@@ -110,7 +110,7 @@ import VideoCard from "./components/VideoCard.astro";
     src="figures/fig_sidebyside_final.pdf"
     alt="Side-by-side comparison of SAM 3D Body, Anny-Fit and the three modes of our model against ground truth on HuMMan and RICH frames."
   />
-  <Fragment slot="caption">Columns: (a) input, (b) SAM 3D Body, (c) Anny-Fit, (d) ours with RGB, (e) ours with RGB and ground, (f) ours with RGB-D. <b>Frames are illustrative, not a random sample.</b></Fragment>
+  <Fragment slot="caption">Columns: (a) Input, (b) SAM 3D Body, (c) Anny-Fit, (d–f) Our three modes. While baselines suffer from severe depth drift, our ground and depth cues tightly align the mesh with ground truth.</Fragment>
 </FigureCard>
 
 </Section>
