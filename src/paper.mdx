@@ -9,7 +9,6 @@ import Section from "./components/Section.astro";
 import Picture from "./components/Picture.astro";
 import FigureCard from "./components/FigureCard.astro";
 import ModeCards from "./components/ModeCards.astro";
-import Metrics from "./components/Metrics.astro";
 import Stats from "./components/Stats.astro";
 import ResultsTable from "./components/ResultsTable.astro";
 import VideoCard from "./components/VideoCard.astro";
@@ -93,17 +92,13 @@ import VideoCard from "./components/VideoCard.astro";
 
 </Section>
 
-<Section id="results" tone="alt" title="Metric accuracy across four benchmarks" intro="Three complementary metrics, all in millimetres. On depth-enabled benchmarks the camera-local metric is primary, because it keeps the placement problem the method is built to solve.">
-
-<Metrics />
+<Section id="results" tone="alt" title="Quantitative Evaluation" intro="Up to 51% reduction in camera-frame error across four standard benchmarks, demonstrating consistent gains over baseline SAM 3D Body.">
 
 <Stats />
 
-<p class="caption">Reduction in camera-local MPJPE from plain SAM 3D Body to the best of our modes on each benchmark. The best mode differs by dataset and uses the extra input named on each card.</p>
-
 <ResultsTable />
 
-<p class="caption">Camera-local MPJPE in millimetres; lower is better. Ground geometry is especially useful when depth is absent, while measured depth gives the strongest gains on the depth-enabled subjects in HuMMan and EgoBody.</p>
+<p class="caption">Camera-local MPJPE in mm (lower is better). Ground geometry provides the strongest gains on RGB benchmarks (BEDLAM2, CMU), while calibrated depth achieves sub-50 mm accuracy on depth benchmarks (HuMMan, EgoBody).</p>
 
 </Section>
 
