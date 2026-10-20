@@ -3,8 +3,9 @@ interface Props {
   name: string;
   title: string;
   badge?: string;
+  showLegend?: boolean;
 }
-const { name, title, badge } = Astro.props;
+const { name, title, badge, showLegend } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const prefix = base.endsWith("/") ? base : base + "/";
 ---
@@ -14,6 +15,16 @@ const prefix = base.endsWith("/") ? base : base + "/";
     {badge && <span class="vcard-badge">{badge}</span>}
     <h3>{title}</h3>
     <p><slot /></p>
+    {showLegend && (
+      <div class="vcard-legend" aria-label="Method Color Legend">
+        <span class="vcard-pill"><i style="--dot: #ffffff; box-shadow: 0 0 0 1px #94a3b8 inset;"></i>Ground Truth</span>
+        <span class="vcard-pill"><i style="--dot: #ffa033;"></i>SAM 3D Body</span>
+        <span class="vcard-pill"><i style="--dot: #4db8ff;"></i>Ours (RGB)</span>
+        <span class="vcard-pill"><i style="--dot: #82c860;"></i>Ours (RGB + Ground)</span>
+        <span class="vcard-pill"><i style="--dot: #ff5c8a;"></i>Ours (RGB-D)</span>
+        <span class="vcard-pill"><i style="--dot: #eab308;"></i>Anny-Fit</span>
+      </div>
+    )}
   </figcaption>
   <div class="vcard-media">
     <video
