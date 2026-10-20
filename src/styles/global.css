@@ -715,18 +715,23 @@ picture,
 
 .formula .katex-display { margin: 0; overflow: auto hidden; }
 
+#takeaway .section-head {
+  max-width: 62rem;
+}
+
 .takeaway {
-  max-width: 48rem;
+  max-width: 62rem;
   margin-inline: auto;
   text-align: center;
 }
 
 .takeaway p {
-  font-size: clamp(1.25rem, 2.3vw, 1.6rem);
-  line-height: 1.5;
+  font-size: clamp(1.18rem, 2vw, 1.45rem);
+  line-height: 1.62;
   letter-spacing: -0.015em;
   color: var(--ink);
   margin: 1.3rem 0 0;
+  text-wrap: balance;
 }
 
 /* ------------------------------------------------------------------ footer */
