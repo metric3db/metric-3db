@@ -47,6 +47,7 @@ import VideoCard from "./components/VideoCard.astro";
     badge="Scene 1 · Metric 3D Geometry"
     name="size_3d"
     title="The same scene in metric 3-D"
+    showLegend={true}
   >
     Camera, floor and depth point cloud seen from the side, with each model's body at its predicted size and distance.
   </VideoCard>
@@ -54,6 +55,7 @@ import VideoCard from "./components/VideoCard.astro";
     badge="Scene 2 · Moving Robot Tracking"
     name="robot_follow_distance"
     title="A robot following a walking adult"
+    showLegend={true}
   >
     Distance to the person, frame by frame, for every method against the depth camera's own reading of the person.
   </VideoCard>
@@ -61,17 +63,10 @@ import VideoCard from "./components/VideoCard.astro";
     badge="Scene 2 · Metric 3D Geometry"
     name="robot_follow_3d"
     title="The same recording as 3-D geometry"
+    showLegend={true}
   >
     Where each model places the person relative to the camera and the scene's point cloud.
   </VideoCard>
-</div>
-
-<div class="legend">
-  <span style="--dot: #FFA033"><i></i>SAM 3D Body</span>
-  <span style="--dot: #4DB8FF"><i></i>ours, RGB</span>
-  <span style="--dot: #82C860"><i></i>ours, RGB + ground</span>
-  <span style="--dot: #FF5C8A"><i></i>ours, RGB-D</span>
-  <span style="--dot: #F0E146"><i></i>Anny-Fit</span>
 </div>
 
 </Section>

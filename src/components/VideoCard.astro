@@ -8,6 +8,7 @@ interface Props {
 const { name, title, badge, showLegend } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const prefix = base.endsWith("/") ? base : base + "/";
+const isRobot = name.startsWith("robot");
 ---
 
 <figure class="vcard">
@@ -17,7 +18,7 @@ const prefix = base.endsWith("/") ? base : base + "/";
     <p><slot /></p>
     {showLegend && (
       <div class="vcard-legend" aria-label="Method Color Legend">
-        <span class="vcard-pill"><i style="--dot: #ffffff; box-shadow: 0 0 0 1px #94a3b8 inset;"></i>Ground Truth</span>
+        <span class="vcard-pill"><i style="--dot: #ffffff; box-shadow: 0 0 0 1px #94a3b8 inset;"></i>{isRobot ? "D455 reading" : "Ground Truth"}</span>
         <span class="vcard-pill"><i style="--dot: #ffa033;"></i>SAM 3D Body</span>
         <span class="vcard-pill"><i style="--dot: #4db8ff;"></i>Ours (RGB)</span>
         <span class="vcard-pill"><i style="--dot: #82c860;"></i>Ours (RGB + Ground)</span>
