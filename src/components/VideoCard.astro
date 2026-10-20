@@ -2,29 +2,33 @@
 interface Props {
   name: string;
   title: string;
+  badge?: string;
 }
-const { name, title } = Astro.props;
+const { name, title, badge } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const prefix = base.endsWith("/") ? base : base + "/";
 ---
 
 <figure class="vcard">
-  <video
-    data-lazy-video
-    muted
-    loop
-    playsinline
-    controls
-    preload="none"
-    poster={`${prefix}videos/posters/${name}.jpg`}
-    aria-label={title}
-  >
-    <source src={`${prefix}videos/${name}.mp4`} type="video/mp4" />
-  </video>
-  <figcaption>
+  <figcaption class="vcard-header">
+    {badge && <span class="vcard-badge">{badge}</span>}
     <h3>{title}</h3>
     <p><slot /></p>
   </figcaption>
+  <div class="vcard-media">
+    <video
+      data-lazy-video
+      muted
+      loop
+      playsinline
+      controls
+      preload="none"
+      poster={`${prefix}videos/posters/${name}.jpg`}
+      aria-label={title}
+    >
+      <source src={`${prefix}videos/${name}.mp4`} type="video/mp4" />
+    </video>
+  </div>
 </figure>
 
 <script>
